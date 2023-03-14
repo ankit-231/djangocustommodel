@@ -1,0 +1,2 @@
+# djangocustommodel
+my django practice
