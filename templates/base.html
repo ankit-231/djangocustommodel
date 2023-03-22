@@ -57,7 +57,7 @@ button:hover, a:hover {
 body {
     background-color: #e8f5ff;
     font-family: Arial;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 
@@ -539,16 +539,18 @@ body {
 .dropdown {
   position: relative;
   display: inline-block;
+  text-align: left;
+  padding: 4px;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 0px;
   z-index: 1;
+  overflow: visible;
 }
 
 .dropdown:hover .dropdown-content {
@@ -580,62 +582,68 @@ body {
           <!-- Navbar Links -->
           <ul id="menu">
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#services">Services</a></li>
+            
             <li>
                 <div class="dropdown">
-                    <a href="">More ↓</a>
+                    <a>More ↓</a>
                     <div class="dropdown-content">
-                    <a href="{% url 'myprofile' %}"  style="height: 98px;">My Profile ({{user}})</a>
-                    <a href="{% url 'password_change' %} " style="height: 98px;">Password Change</a>
-                    <a href="{% url 'logout_view' %} " style="height: 98px;">Logout</a>
+                    <a href="{% url 'myprofile' %}" >My Profile ({{user}})</a>
+                    <a href="{% url 'password_change' %} ">Password Change</a>
+                    <a href="{% url 'logout_view' %} ">Logout</a>
                     </div>
                 </div>
             </li>
             {% if user.role == "admin" %}
+                <li>
+                    <div class="dropdown">
+                        <a>All Links ↓</a>
+                        <div class="dropdown-content">
+                            <a href="{% url 'create_grade_level' %}"> Create Grade Level</a><br>
+                            <a href="{% url 'create_section' %}"> Create Section</a><br>
+                            <a href="{% url 'viewalldata' %}"> View All Data</a><br>
+                            <a href="{% url 'addstdtosec' %}"> Add Std To Sec</a><br>
+                            <a href="{% url 'add_teacher_to_grade' %}"> Add teacher to grade</a><br>
+                        </div>
+                    </div>
+                </li>
                 <li><a href="{% url 'viewalldata' %}">View all data</a></li>
+                <li><a href="{% url 'add_user' %}">Add User</a></li>
             {% endif %}
-            <li><a href="{% url 'add_user' %}">Add User</a></li>
           </ul>
         </div>
       </nav>
     
     <main>
-    <a href="{% url 'register' %}"> register</a><br>
     
-        {{user}}
-        send mail <a href="{% url 'send_mail_view' %}">Send Mail</a>
         {% if user.is_authenticated %}
+            <h1>Hi {{user}}!</h1>
             {% if user.role == "student" %}
-                Hi {{ user.username }}!<br>
                 You are a student.<br>
-                Your name is {{ user.username }}<br>
-                ID: {{ user.id }}<br>
-                Email: {{ user.email }}
             {% elif user.role == "teacher" %}
-                Hi {{ user.username }}!<br>
                 You are a teacher.<br>
-                Your name is {{ user.username }}<br>
-                ID: {{ user.id }}<br>
-                Email: {{ user.email }}
+            {% elif user.role == "admin" %}
+                You are an admin.<br>
             {% else %}
-                Hi {{ user.username }}!<br>
-                You are an owner.<br>
-                Your name is {{ user.username }}<br>
-                ID: {{ user.id }}<br>
-                Email: {{ user.email }} 
+                You don't have any role.
             {% endif %}
             <p><a href="{% url 'logout_view' %}">Log Out</a></p>
+
             {% block content %}
             
             {% endblock %}
+
         {% else %}
+            <p>You are not logged in</p>
+            <a href="{% url 'register' %}">Register</a> or <a href="{% url 'login_view' %}">Login</a> to continue
+
             {% block register %}
+
 
             {% endblock %}
             
             {% block login %}
-                <p>You are not logged in</p>
-                <a href="{% url 'login_view' %}">Log In</a><br>
+
+                
             {% endblock %}
         {% endif %}
         

@@ -4,16 +4,91 @@
 
 {% block data %}
 
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: #406cc9;
+  color: white;
+  font-weight: bold;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+tr:hover {
+  background-color: #ddd;
+}
+.add-row-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 16px 0;
+  cursor: pointer;
+}
+
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const addButton = document.querySelector(".add-row-button");
+  if (addButton) {
+    addButton.addEventListener("click", addRow);
+  }
+});
+
+function addRow() {
+  const table = document.querySelector("table tbody");
+  if (!table) {
+    return;
+  }
+
+  const newRow = document.createElement("tr");
+
+  for (let i = 0; i < 4; i++) {
+    const newCell = document.createElement("td");
+    newCell.textContent = "New data";
+    newRow.appendChild(newCell);
+  }
+
+  table.appendChild(newRow);
+}
+
+</script>
 
     Grade Levels:
-    <table style="border: 3px solid black;">
-        <th>id</th><th>Grade</th><th>Fee</th><th>Subjects</th>
-        {% for data in gradelevels %}
+    <table>
+        <thead>
+          <tr>
+            <th>id</th><th>Grade</th><th>Fee</th><th>Subjects</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows go here -->
+            {% for data in gradelevels %}
             <tr>
                 <td>{{ data.id }}</td> <td>{{ data.gradelevel_name }}</td> <td>{{ data.fee }}</td> <td>{{data.subjects}}</td>
             </tr>
         {% endfor %}
-    </table><br>
+        </tbody>
+      </table><br>
 
 {% endblock %}
 
