@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input  type="text" name="sectionname" id="sectionname" placeholder="section name">
+        <input type="text" name="total_students_section" id="total_students_section" placeholder="total students in this section">
+        
+        Grade Level:
+        <select name="gradelevel_id" id="gradelevel_id">
+            {% for gradelevel in gradelevels %}
+                <option value="{{gradelevel.id}}">{{ gradelevel.gradelevel_name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Select">
+    </form>
+</body>
+
+{% endblock %}

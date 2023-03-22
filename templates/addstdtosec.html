@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}Home{% endblock %}
+
+
+
+{% block content %}
+<style>
+    
+</style>
+
+<body>
+
+    {{user}}
+    {% if user.is_authenticated %}
+        {% if user.role == "student" or user.role == "teacher" %}
+            you are not an admin
+        {% elif user.role == "admin" %}
+            Hi {{ user.username }}!<br>
+            You are an admin.<br>
+            Your name is {{ user.username }}<br>
+            ID: {{ user.id }}<br>
+            Email: {{ user.email }} 
+            <br><br>
+            
+            <form action="" method="POST">
+                {% csrf_token %}
+                
+                Available Students:
+                <select name="sel_student" id="sel_student">
+                    {% for student in students %}
+                        <option value="{{student.username}}">{{ student.username }}</option>
+                    {% endfor %}
+                </select>
+                
+                Sections:
+                <select name="sel_section" id="sel_section">
+                    {% for section in sections %}
+                        <option value="{{section.id}}">{{section.gradelevel_id.gradelevel_name}} - {{ section.sectionname }}</option>
+                    {% endfor %}
+                </select>
+        
+                <input type="submit" value="Select">
+            </form>
+
+        {% else %}
+            error: you dont have any role
+        
+        {% endif %}
+        <p><a href="{% url 'logout_view' %}">Log Out</a></p>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login_view' %}">Log In</a>
+    {% endif %}
+</body>
+{% endblock %}

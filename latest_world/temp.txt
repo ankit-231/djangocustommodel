@@ -1,0 +1,52 @@
+if request.method == "POST":
+        if request.POST['role'] == "student":
+            print(request.POST)
+            form = StudentForm(request.POST)
+            print("before valid")
+            # is_valid is a function so is_valid()
+            if form.is_valid():
+                print("stu form valid")
+                print(form)
+                # form.username=request.POST.get('username')
+                print(form.cleaned_data['email'])
+                form.save()
+                print("saved")
+
+                user = CustomUser.objects.create_user(username=form.cleaned_data['username'], email=form.cleaned_data['email'], password=form.cleaned_data['password'], role="student")
+                user.save()
+
+                # saving user foreign key in s_u_id
+                t = StudentsNew.objects.get(username=form.cleaned_data['username'])
+                t.s_u_id = user
+                t.save()
+
+                print("user saved")
+            # print("this stu")
+        else:
+            print(request.POST)
+            form = TeacherForm(request.POST)
+            print("before valid")
+            # is_valid is a function so is_valid()
+            if form.is_valid():
+                print("tea form valid")
+                print(form)
+                # form.username=request.POST.get('username')
+                print(form.cleaned_data['email'])
+                form.save()
+                print("saved")
+
+                user = CustomUser.objects.create_user(username=form.cleaned_data['username'], email=form.cleaned_data['email'], password=form.cleaned_data['password'], role="teacher")
+                user.save()
+                print(user.role)
+
+                # saving user foreign key in s_u_id
+                t = TeachersNew.objects.get(username=form.cleaned_data['username'])
+                t.t_u_id = user
+                t.save()
+
+                print("user saved")
+    
+        return render(request, "studentform.html", {"form": form})
+    else:
+        form = StudentForm()
+        return render(request, "studentform.html", {"form": form})

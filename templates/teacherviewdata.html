@@ -1,0 +1,19 @@
+{% extends 'viewalldata.html' %}
+
+{% block title %}Teachers{% endblock %}
+
+{% block data %}
+
+
+    Teachers:
+    <table style="border: 3px solid black;">
+        <th>id</th><th>username</th><th>email</th><th>fullname</th><th>subject</th>
+        {% for data in teachers %}
+            <tr>
+                <td>{{ data.id }}</td> <td>{{ data.username }}</td> <td>{{ data.email }}</td> <td>{{data.fullName}}</td> <td>{{data.subject}}</td><td><a href="teacherviewdata/{{data.id}}">edit</a></td>
+            </tr>
+        {% endfor %}
+    </table><br>
+
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    
+    <a href="{% url 'login_view' %}"> login_view</a><br>
+    <a href="{% url 'myprofile' %}"> myprofile</a><br>
+    <a href="{% url 'create_grade_level' %}"> create_grade_level</a><br>
+    <a href="{% url 'create_section' %}"> create_section</a><br>
+    <a href="{% url 'viewalldata' %}"> viewalldata</a><br>
+    <a href="{% url 'addstdtosec' %}"> addstdtosec</a><br>
+    <a href="{% url 'add_teacher_to_grade' %}"> add_teacher_to_grade</a><br>
+    <a href="{% url 'password_change' %}"> password_change</a><br>
+    <a href="{% url 'password_reset' %}"> password_reset</a><br>
+{% endblock %}

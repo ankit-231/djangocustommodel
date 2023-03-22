@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}Add Teachers to Grade{% endblock %}
+
+
+
+{% block content %}
+<style>
+    
+</style>
+
+<body>
+
+    {{user}}
+    {% if user.is_authenticated %}
+        {% if user.role == "student" or user.role == "teacher" %}
+            you are not an admin
+        {% elif user.role == "admin" %}
+            Hi {{ user.username }}!<br>
+            You are an admin.<br>
+            Your name is {{ user.username }}<br>
+            ID: {{ user.id }}<br>
+            Email: {{ user.email }} 
+            <br><br>
+            
+            <form action="" method="POST">
+                {% csrf_token %}
+                
+                Available Teachers:
+                <select name="teacher_id" id="teacher_id">
+                    {% for teacher in teachers %}
+                        <option value="{{teacher.id}}">{{ teacher.username }}</option>
+                    {% endfor %}
+                </select>
+                
+                Grade Levels:
+                <select name="gradelevel_id" id="gradelevel_id">
+                    {% for gradelevel in gradelevels %}
+                        <option value="{{gradelevel.id}}">{{ gradelevel.gradelevel_name }}</option>
+                    {% endfor %}
+                </select>
+        
+                <input type="submit" value="Select">
+            </form>
+
+        {% else %}
+            error: you dont have any role
+        
+        {% endif %}
+        <p><a href="{% url 'logout_view' %}">Log Out</a></p>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login_view' %}">Log In</a>
+    {% endif %}
+</body>
+{% endblock %}

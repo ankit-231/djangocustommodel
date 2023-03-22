@@ -1,0 +1,19 @@
+{% extends 'viewalldata.html' %}
+
+{% block title %}Students{% endblock %}
+
+{% block data %}
+
+
+    Sections:
+    <table style="border: 3px solid black;">
+        <th>id</th><th>Total students</th><th>Grade</th><th>Section name</th>
+        {% for data in sections %}
+            <tr>
+                <td>{{ data.id }}</td> <td>{{ data.total_students_section }}</td> <td>{{ data.gradelevel_id.gradelevel_name }}</td> <td>{{data.sectionname}}</td>
+            </tr>
+        {% endfor %}
+    </table><br>
+
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% extends 'viewalldata.html' %}
+
+{% block title %}Students{% endblock %}
+
+{% block data %}
+
+
+    Grade Levels:
+    <table style="border: 3px solid black;">
+        <th>id</th><th>Grade</th><th>Fee</th><th>Subjects</th>
+        {% for data in gradelevels %}
+            <tr>
+                <td>{{ data.id }}</td> <td>{{ data.gradelevel_name }}</td> <td>{{ data.fee }}</td> <td>{{data.subjects}}</td>
+            </tr>
+        {% endfor %}
+    </table><br>
+
+{% endblock %}
+

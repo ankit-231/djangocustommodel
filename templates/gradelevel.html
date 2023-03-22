@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input  type="text" name="gradelevel_name" id="gradelevel_name" placeholder="grade name">
+        <input type="text" name="fee" id="fee" placeholder="fee">
+        <input type="text" name="subjects" id="subjects" placeholder="subjects">
+
+        <input type="submit" value="Select">
+    </form>
+</body>
+
+{% endblock %}

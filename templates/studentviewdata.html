@@ -1,0 +1,22 @@
+{% extends 'viewalldata.html' %}
+
+{% block title %}Students{% endblock %}
+
+{% block data %}
+
+
+    Students:
+            <table style="border: 3px solid black;">
+                <th>id</th><th>username</th><th>email</th><th>fullname</th><th>roll no</th>
+                {% for data in students %}
+                    {% if data.is_deleted == 0 %}
+                        <tr>
+                            <td>{{ data.id }}</td> <td>{{ data.username }}</td> <td>{{ data.email }}</td> <td>{{data.fullName}}</td> <td>{{data.rollno}}</td> <td><a href="studentviewdata/{{data.id}}">edit</a></td>
+                        </tr>
+                    {% endif %}
+
+                {% endfor %}
+            </table><br>
+
+{% endblock %}
+
